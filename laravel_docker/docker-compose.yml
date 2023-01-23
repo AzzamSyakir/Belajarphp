@@ -1,0 +1,15 @@
+version: '3.8'
+
+services:
+mysql:
+  image: mysql:8.0
+  container_name: myapp-mysql
+  volumes:
+    - ./data/mysql:/var/lib/mysql
+  environment:
+    - MYSQL_ROOT_PASSWORD=myapp
+    - MYSQL_DATABASE=myapp
+    - MYSQL_USER=myapp
+    - MYSQL_PASSWORD=myapp
+  ports:
+    - "8001:3306"
