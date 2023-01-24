@@ -1,12 +1,11 @@
 <?php
 
 namespace App\Http\Controllers;
-
 use App\Models\santri;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 
-class santri extends Controller
+class santriController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -22,10 +21,18 @@ class santri extends Controller
      * Show the form for creating a new resource.
      *
      * @return \Illuminate\Http\Response
+     *
      */
-    public function create()
+    public function create(Request $request)
     {
-        //
+        //create new santri
+        $santri = new santri();
+        $santri->name = $request->input('username');
+        $santri->password = $request->input('password');
+        $santri->gender = $request->input('gender');
+        $santri->email = $request->input('email');
+        $santri->save();
+        return response()->json($santri);
     }
 
     /**
@@ -36,7 +43,8 @@ class santri extends Controller
      */
     public function store(Request $request)
     {
-        //
+        //post
+
     }
 
     /**
@@ -47,7 +55,9 @@ class santri extends Controller
      */
     public function show(santri $santri)
     {
-        //
+        //get santi
+        $santri = santri::all();
+        return response()->json($santri);
     }
 
     /**
@@ -68,9 +78,17 @@ class santri extends Controller
      * @param  \App\Models\santri  $santri
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, santri $santri)
+    public function update(Request $request, santri $santri, $id)
     {
-        //
+        //update data
+        $santri = santri::find($id);
+        $santri->name = $request->input('username');
+        $santri->password = $request->input('password');
+        $santri->gender = $request->input('gender');
+        $santri->email = $request->input('email');
+        $santri->save();
+        return response()->json($santri);
+
     }
 
     /**
@@ -79,8 +97,11 @@ class santri extends Controller
      * @param  \App\Models\santri  $santri
      * @return \Illuminate\Http\Response
      */
-    public function destroy(santri $santri)
+    public function delete(santri $santri, $id)
     {
-        //
+        //delete data 
+       $santri= santri::find($id);
+       $santri->delete();
+        return response()->json('delete success');
     }
 }

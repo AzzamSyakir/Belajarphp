@@ -22,3 +22,4 @@ Route::get('/register', function () {
     return view('welcome');
 });
 
+Route :: put('/register', 'UserController@store');
